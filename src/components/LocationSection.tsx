@@ -13,8 +13,6 @@ export default function LocationSection() {
             borderRadius: "20px",
             border: "1px solid #E5E7EB",
             overflow: "hidden",
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
           }}
           className="grid grid-cols-1 md:grid-cols-2"
         >
@@ -91,8 +89,7 @@ export default function LocationSection() {
                   lineHeight: 1.6,
                 }}
               >
-                F10/12B, Second Floor, Independent Floors,
-                <br />
+                F10/12B, Second Floor, Independent Floors,{" "}
                 Golf Course Road, DLF Phase 1, Gurgaon, Haryana 122002
               </p>
             </div>
@@ -143,9 +140,11 @@ export default function LocationSection() {
             {/* CTA */}
             <Link
               href="/book-session"
+              className="w-full sm:w-auto"
               style={{
                 display: "inline-flex",
                 alignItems: "center",
+                justifyContent: "center",
                 gap: "8px",
                 padding: "14px 28px",
                 fontSize: "14px",
@@ -155,6 +154,7 @@ export default function LocationSection() {
                 borderRadius: "9999px",
                 boxShadow: "0 4px 12px rgba(59, 91, 219, 0.25)",
                 transition: "all 0.15s",
+                textAlign: "center",
               }}
             >
               Book In-Person Visit at Clinic
@@ -227,9 +227,11 @@ export default function LocationSection() {
               href="https://maps.google.com/?q=DLF+Phase+1+Golf+Course+Road+Gurgaon"
               target="_blank"
               rel="noopener noreferrer"
+              className="w-full sm:w-auto"
               style={{
                 display: "inline-flex",
                 alignItems: "center",
+                justifyContent: "center",
                 gap: "8px",
                 padding: "12px 24px",
                 fontSize: "13px",
@@ -240,6 +242,7 @@ export default function LocationSection() {
                 borderRadius: "9999px",
                 textDecoration: "none",
                 transition: "all 0.15s",
+                textAlign: "center",
               }}
             >
               Open in Google Maps
