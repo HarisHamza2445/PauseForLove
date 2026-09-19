@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4A78F6"/>
+      <stop offset="100%" stop-color="#6366F1"/>
+    </linearGradient>
+  </defs>
+  <!-- Heart shape using cubic beziers -->
+  <path d="M16 28 C12 24 2 18 2 10 C2 5 6 1 10.5 1 C13 1 15 2.5 16 4.5 C17 2.5 19 1 21.5 1 C26 1 30 5 30 10 C30 18 20 24 16 28Z" fill="none" stroke="url(#g)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Pause bars -->
+  <rect x="12" y="10" width="2.8" height="8" rx="1.2" fill="url(#g)"/>
+  <rect x="17.2" y="10" width="2.8" height="8" rx="1.2" fill="url(#g)"/>
+</svg>

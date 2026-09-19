@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+.serena/
+SUPABASE_SETUP.md
+public/target_logo_4x.png
