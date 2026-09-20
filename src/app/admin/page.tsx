@@ -81,7 +81,7 @@ export default function AdminDashboard() {
           <div style={{ height: 28, width: 180, borderRadius: 6, background: "linear-gradient(90deg, #F1F5F9 25%, #E5EAF2 50%, #F1F5F9 75%)", backgroundSize: "200% 100%", animation: "shimmer 1.5s infinite", marginBottom: 8 }} />
           <div style={{ height: 14, width: 260, borderRadius: 6, background: "linear-gradient(90deg, #F1F5F9 25%, #E5EAF2 50%, #F1F5F9 75%)", backgroundSize: "200% 100%", animation: "shimmer 1.5s infinite" }} />
         </div>
-        <div className="grid grid-cols-2 lg:grid-cols-4" style={{ gap: 16, marginBottom: 28 }}>
+      <div className="grid grid-cols-2 lg:grid-cols-4" style={{ gap: "clamp(8px, 2vw, 16px)", marginBottom: "clamp(16px, 4vw, 28px)" }}>
           {[1,2,3,4].map(i => (
             <div key={i} className="admin-card" style={{ background: "#FFFFFF", borderRadius: 14, padding: "22px 20px", border: "1px solid #E5EAF2" }}>
               <div style={{ height: 14, width: 80, borderRadius: 4, background: "linear-gradient(90deg, #F1F5F9 25%, #E5EAF2 50%, #F1F5F9 75%)", backgroundSize: "200% 100%", animation: "shimmer 1.5s infinite", marginBottom: 12 }} />
@@ -127,7 +127,7 @@ export default function AdminDashboard() {
 
       {/* Recent Bookings */}
       <div className="admin-stagger-5" style={{ background: "#FFFFFF", borderRadius: 14, border: "1px solid #E5EAF2", overflow: "hidden" }}>
-        <div style={{ padding: "18px 22px", borderBottom: "1px solid #F1F5F9", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <div style={{ padding: "clamp(12px, 3vw, 18px) clamp(12px, 3vw, 22px)", borderBottom: "1px solid #F1F5F9", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <h2 style={{ fontSize: 15, fontWeight: 600, color: "#111827", margin: 0 }}>Recent Bookings</h2>
           <a href="/admin/bookings" style={{ fontSize: 12, fontWeight: 500, color: "#4A78F6", textDecoration: "none", transition: "color 0.2s" }}
             onMouseEnter={(e) => { e.currentTarget.style.color = "#2B4AC7"; }}
@@ -144,11 +144,11 @@ export default function AdminDashboard() {
           </div>
         ) : (
           <div style={{ overflowX: "auto" }}>
-            <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 580 }}>
+            <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 500 }}>
               <thead>
                 <tr style={{ borderBottom: "1px solid #F1F5F9" }}>
                   {["Client", "Service", "Date", "Time", "Status"].map(h => (
-                    <th key={h} style={{ padding: "12px 22px", textAlign: "left", fontSize: 12, fontWeight: 600, color: "#64748B", textTransform: "uppercase", letterSpacing: "0.04em" }}>{h}</th>
+                    <th key={h} style={{ padding: "10px 14px", textAlign: "left", fontSize: 11, fontWeight: 600, color: "#64748B", textTransform: "uppercase", letterSpacing: "0.04em", whiteSpace: "nowrap" }}>{h}</th>
                   ))}
                 </tr>
               </thead>
@@ -158,14 +158,14 @@ export default function AdminDashboard() {
                     borderBottom: "1px solid #F8FAFC",
                     animation: `fadeInUp 0.3s ease ${i * 0.05}s both`,
                   }}>
-                    <td style={{ padding: "14px 22px" }}>
+                    <td style={{ padding: "12px 14px" }}>
                       <div style={{ fontSize: 13, fontWeight: 500, color: "#111827" }}>{b.full_name}</div>
-                      <div style={{ fontSize: 12, color: "#94A3B8" }}>{b.email}</div>
+                      <div style={{ fontSize: 11, color: "#94A3B8" }}>{b.email}</div>
                     </td>
-                    <td style={{ padding: "14px 22px", fontSize: 13, color: "#64748B", textTransform: "capitalize" }}>{b.service_type}</td>
-                    <td style={{ padding: "14px 22px", fontSize: 13, color: "#64748B" }}>{b.preferred_date || "—"}</td>
-                    <td style={{ padding: "14px 22px", fontSize: 13, color: "#64748B" }}>{b.preferred_time ? b.preferred_time.substring(0, 5) : "—"}</td>
-                    <td style={{ padding: "14px 22px" }}><StatusBadge status={b.status} /></td>
+                    <td style={{ padding: "12px 14px", fontSize: 12, color: "#64748B", textTransform: "capitalize" }}>{b.service_type}</td>
+                    <td style={{ padding: "12px 14px", fontSize: 12, color: "#64748B", whiteSpace: "nowrap" }}>{b.preferred_date || "—"}</td>
+                    <td style={{ padding: "12px 14px", fontSize: 12, color: "#64748B" }}>{b.preferred_time ? b.preferred_time.substring(0, 5) : "—"}</td>
+                    <td style={{ padding: "12px 14px" }}><StatusBadge status={b.status} /></td>
                   </tr>
                 ))}
               </tbody>

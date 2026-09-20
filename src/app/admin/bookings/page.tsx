@@ -145,11 +145,11 @@ export default function BookingsPage() {
           </div>
         ) : (
           <div style={{ overflowX: "auto" }}>
-            <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 700 }}>
+            <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 650 }}>
               <thead>
                 <tr style={{ borderBottom: "1px solid #F1F5F9" }}>
                   {["Client", "Service", "Price", "Date", "Time", "Status"].map(h => (
-                    <th key={h} style={{ padding: "12px 22px", textAlign: "left", fontSize: 12, fontWeight: 600, color: "#64748B", textTransform: "uppercase", letterSpacing: "0.04em" }}>{h}</th>
+                    <th key={h} style={{ padding: "10px 14px", textAlign: "left", fontSize: 11, fontWeight: 600, color: "#64748B", textTransform: "uppercase", letterSpacing: "0.04em", whiteSpace: "nowrap" }}>{h}</th>
                   ))}
                 </tr>
               </thead>
@@ -160,15 +160,15 @@ export default function BookingsPage() {
                     backgroundColor: selected?.id === b.id ? "#EFF6FF" : "transparent",
                     animation: `fadeInUp 0.2s ease ${i * 0.03}s both`,
                   }}>
-                    <td style={{ padding: "14px 22px" }}>
+                    <td style={{ padding: "12px 14px" }}>
                       <div style={{ fontSize: 13, fontWeight: 500, color: "#111827" }}>{b.full_name}</div>
-                      <div style={{ fontSize: 12, color: "#94A3B8" }}>{b.email}</div>
+                      <div style={{ fontSize: 11, color: "#94A3B8" }}>{b.email}</div>
                     </td>
-                    <td style={{ padding: "14px 22px", fontSize: 13, color: "#64748B", textTransform: "capitalize" }}>{b.service_type}</td>
-                    <td style={{ padding: "14px 22px", fontSize: 13, fontWeight: 600, color: b.service_type === "discovery" ? "#059669" : "#111827" }}>{b.service_type === "discovery" ? "FREE" : b.service_type === "couple" ? "₹3,200" : "₹2,200"}</td>
-                    <td style={{ padding: "14px 22px", fontSize: 13, color: "#64748B" }}>{b.preferred_date || "—"}</td>
-                    <td style={{ padding: "14px 22px", fontSize: 13, color: "#64748B" }}>{b.preferred_time ? b.preferred_time.substring(0, 5) : "—"}</td>
-                    <td style={{ padding: "14px 22px" }}><StatusBadge status={b.status} /></td>
+                    <td style={{ padding: "12px 14px", fontSize: 12, color: "#64748B", textTransform: "capitalize" }}>{b.service_type}</td>
+                    <td style={{ padding: "12px 14px", fontSize: 12, fontWeight: 600, color: b.service_type === "discovery" ? "#059669" : "#111827" }}>{b.service_type === "discovery" ? "FREE" : b.service_type === "couple" ? "₹3,200" : "₹2,200"}</td>
+                    <td style={{ padding: "12px 14px", fontSize: 12, color: "#64748B", whiteSpace: "nowrap" }}>{b.preferred_date || "—"}</td>
+                    <td style={{ padding: "12px 14px", fontSize: 12, color: "#64748B" }}>{b.preferred_time ? b.preferred_time.substring(0, 5) : "—"}</td>
+                    <td style={{ padding: "12px 14px" }}><StatusBadge status={b.status} /></td>
                   </tr>
                 ))}
               </tbody>
@@ -191,13 +191,13 @@ export default function BookingsPage() {
             zIndex: 60, display: "flex", flexDirection: "column",
             boxShadow: "-8px 0 30px rgba(0,0,0,0.1)",
           }}>
-            <div style={{ padding: "20px 24px", borderBottom: "1px solid #F1F5F9", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <div style={{ padding: "clamp(12px, 3vw, 20px) clamp(12px, 3vw, 24px)", borderBottom: "1px solid #F1F5F9", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               <h3 style={{ fontSize: 16, fontWeight: 600, color: "#111827", margin: 0 }}>Booking Details</h3>
               <button onClick={() => setSelected(null)} className="admin-btn" style={{ background: "#F8FAFC", border: "1px solid #E5EAF2", borderRadius: 8, width: 32, height: 32, cursor: "pointer", color: "#64748B", display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <X size={16} />
               </button>
             </div>
-            <div style={{ flex: 1, overflowY: "auto", padding: 24 }}>
+            <div style={{ flex: 1, overflowY: "auto", padding: "clamp(16px, 4vw, 24px)" }}>
               {/* Client */}
               <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
                 <div style={{ width: 44, height: 44, borderRadius: 12, background: "linear-gradient(135deg, #4A78F6, #6366F1)", display: "flex", alignItems: "center", justifyContent: "center" }}>

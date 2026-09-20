@@ -19,7 +19,7 @@ export default function AdminLogin() {
     setError("");
     setIsLoading(true);
     await new Promise(r => setTimeout(r, 400));
-    if (login(username, password)) {
+    if (await login(username, password)) {
       router.push("/admin");
     } else {
       setError("Invalid username or password");

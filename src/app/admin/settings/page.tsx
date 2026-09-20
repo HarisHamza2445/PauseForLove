@@ -48,13 +48,10 @@ export default function SettingsPage() {
     setSaving(false);
   };
 
-  const changeCredentials = () => {
+  const changeCredentials = async () => {
     setCredMsg("");
-    const defaultPass = "Neha@2026";
-    const savedPass = localStorage.getItem("admin_password") || defaultPass;
-
-    if (credentials.current_password !== savedPass) {
-      setCredMsg("Current password is incorrect");
+    if (!credentials.current_password) {
+      setCredMsg("Current password is required");
       return;
     }
     if (!credentials.new_username.trim()) {
@@ -65,9 +62,32 @@ export default function SettingsPage() {
       setCredMsg("New passwords do not match");
       return;
     }
+
+    const verifyRes = await fetch("/api/auth", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "login", username: "Neha", password: credentials.current_password }),
+    });
+    const verifyData = await verifyRes.json();
+
+    const savedUser = credentials.new_username.trim();
+    const savedPass = credentials.new_password || credentials.current_password;
+
+    const checkRes = await fetch("/api/auth", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "login", username: savedUser, password: savedPass }),
+    });
+    const checkData = await checkRes.json();
+
+    if (!verifyData.success && !checkData.success) {
+      setCredMsg("Current password is incorrect");
+      return;
+    }
+
     const newUser = credentials.new_username.trim();
-    const newPass = credentials.new_password || savedPass;
-    updateCredentials(newUser, newPass);
+    const newPass = credentials.new_password || undefined;
+    await updateCredentials(newUser, newPass || credentials.current_password);
     setCredentials(prev => ({ ...prev, current_password: "", new_password: "", confirm_password: "" }));
     setCredMsg("Credentials updated! Use new credentials on next login.");
     setTimeout(() => setCredMsg(""), 4000);
@@ -107,17 +127,17 @@ export default function SettingsPage() {
 
       {/* Profile */}
       <div className="admin-stagger-1" style={{ background: "#FFFFFF", borderRadius: 14, border: "1px solid #E5EAF2", marginBottom: 16, overflow: "hidden" }}>
-        <div style={{ padding: "18px 24px", borderBottom: "1px solid #F1F5F9", display: "flex", alignItems: "center", gap: 10 }}>
-          <div style={{ width: 36, height: 36, borderRadius: 10, backgroundColor: "#EFF6FF", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div style={{ padding: "clamp(12px, 3vw, 18px) clamp(14px, 3vw, 24px)", borderBottom: "1px solid #F1F5F9", display: "flex", alignItems: "center", gap: 10 }}>
+          <div style={{ width: 36, height: 36, borderRadius: 10, backgroundColor: "#EFF6FF", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
             <User size={18} color="#4A78F6" />
           </div>
-          <div>
+          <div style={{ minWidth: 0 }}>
             <h2 style={{ fontSize: 15, fontWeight: 600, color: "#111827", margin: 0 }}>Profile</h2>
             <p style={{ fontSize: 12, color: "#64748B", margin: "2px 0 0" }}>Your personal information</p>
           </div>
         </div>
-        <div style={{ padding: "20px 24px" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 16 }}>
+        <div style={{ padding: "clamp(14px, 3vw, 20px) clamp(14px, 3vw, 24px)" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 260px), 1fr))", gap: 16 }}>
             <div>
               <label style={{ display: "block", fontSize: 13, fontWeight: 500, color: "#374151", marginBottom: 6 }}>Full Name</label>
               <div style={{ position: "relative" }}>
@@ -153,17 +173,17 @@ export default function SettingsPage() {
 
       {/* Practice Information */}
       <div className="admin-stagger-2" style={{ background: "#FFFFFF", borderRadius: 14, border: "1px solid #E5EAF2", marginBottom: 16, overflow: "hidden" }}>
-        <div style={{ padding: "18px 24px", borderBottom: "1px solid #F1F5F9", display: "flex", alignItems: "center", gap: 10 }}>
-          <div style={{ width: 36, height: 36, borderRadius: 10, backgroundColor: "#F0FDF4", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div style={{ padding: "clamp(12px, 3vw, 18px) clamp(14px, 3vw, 24px)", borderBottom: "1px solid #F1F5F9", display: "flex", alignItems: "center", gap: 10 }}>
+          <div style={{ width: 36, height: 36, borderRadius: 10, backgroundColor: "#F0FDF4", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
             <MapPin size={18} color="#10B981" />
           </div>
-          <div>
+          <div style={{ minWidth: 0 }}>
             <h2 style={{ fontSize: 15, fontWeight: 600, color: "#111827", margin: 0 }}>Practice Information</h2>
             <p style={{ fontSize: 12, color: "#64748B", margin: "2px 0 0" }}>Clinic details and working hours</p>
           </div>
         </div>
-        <div style={{ padding: "20px 24px" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 16 }}>
+        <div style={{ padding: "clamp(14px, 3vw, 20px) clamp(14px, 3vw, 24px)" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 260px), 1fr))", gap: 16 }}>
             <div>
               <label style={{ display: "block", fontSize: 13, fontWeight: 500, color: "#374151", marginBottom: 6 }}>Clinic Address</label>
               <div style={{ position: "relative" }}>
@@ -186,17 +206,17 @@ export default function SettingsPage() {
 
       {/* Emergency */}
       <div className="admin-stagger-3" style={{ background: "#FFFFFF", borderRadius: 14, border: "1px solid #E5EAF2", marginBottom: 16, overflow: "hidden" }}>
-        <div style={{ padding: "18px 24px", borderBottom: "1px solid #F1F5F9", display: "flex", alignItems: "center", gap: 10 }}>
-          <div style={{ width: 36, height: 36, borderRadius: 10, backgroundColor: "#FEF2F2", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div style={{ padding: "clamp(12px, 3vw, 18px) clamp(14px, 3vw, 24px)", borderBottom: "1px solid #F1F5F9", display: "flex", alignItems: "center", gap: 10 }}>
+          <div style={{ width: 36, height: 36, borderRadius: 10, backgroundColor: "#FEF2F2", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
             <Phone size={18} color="#EF4444" />
           </div>
-          <div>
+          <div style={{ minWidth: 0 }}>
             <h2 style={{ fontSize: 15, fontWeight: 600, color: "#111827", margin: 0 }}>Emergency</h2>
             <p style={{ fontSize: 12, color: "#64748B", margin: "2px 0 0" }}>Helpline information</p>
           </div>
         </div>
-        <div style={{ padding: "20px 24px" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 16 }}>
+        <div style={{ padding: "clamp(14px, 3vw, 20px) clamp(14px, 3vw, 24px)" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 260px), 1fr))", gap: 16 }}>
             <div>
               <label style={{ display: "block", fontSize: 13, fontWeight: 500, color: "#374151", marginBottom: 6 }}>Emergency Helpline</label>
               <input type="text" value={profile.emergencyhelpline} onChange={e => updateField("emergencyhelpline", e.target.value)}
@@ -213,17 +233,17 @@ export default function SettingsPage() {
 
       {/* Account Security */}
       <div className="admin-stagger-4" style={{ background: "#FFFFFF", borderRadius: 14, border: "1px solid #E5EAF2", marginBottom: 16, overflow: "hidden" }}>
-        <div style={{ padding: "18px 24px", borderBottom: "1px solid #F1F5F9", display: "flex", alignItems: "center", gap: 10 }}>
-          <div style={{ width: 36, height: 36, borderRadius: 10, backgroundColor: "#FEF3C7", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div style={{ padding: "clamp(12px, 3vw, 18px) clamp(14px, 3vw, 24px)", borderBottom: "1px solid #F1F5F9", display: "flex", alignItems: "center", gap: 10 }}>
+          <div style={{ width: 36, height: 36, borderRadius: 10, backgroundColor: "#FEF3C7", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
             <Shield size={18} color="#D97706" />
           </div>
-          <div>
+          <div style={{ minWidth: 0 }}>
             <h2 style={{ fontSize: 15, fontWeight: 600, color: "#111827", margin: 0 }}>Account Security</h2>
             <p style={{ fontSize: 12, color: "#64748B", margin: "2px 0 0" }}>Change your login username and password</p>
           </div>
         </div>
-        <div style={{ padding: "20px 24px" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 16 }}>
+        <div style={{ padding: "clamp(14px, 3vw, 20px) clamp(14px, 3vw, 24px)" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 260px), 1fr))", gap: 16 }}>
             <div>
               <label style={{ display: "block", fontSize: 13, fontWeight: 500, color: "#374151", marginBottom: 6 }}>Current Password *</label>
               <div style={{ position: "relative" }}>
@@ -296,16 +316,16 @@ export default function SettingsPage() {
 
       {/* Account */}
       <div className="admin-stagger-5" style={{ background: "#FFFFFF", borderRadius: 14, border: "1px solid #E5EAF2", overflow: "hidden" }}>
-        <div style={{ padding: "18px 24px", borderBottom: "1px solid #F1F5F9", display: "flex", alignItems: "center", gap: 10 }}>
-          <div style={{ width: 36, height: 36, borderRadius: 10, backgroundColor: "#F8FAFC", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div style={{ padding: "clamp(12px, 3vw, 18px) clamp(14px, 3vw, 24px)", borderBottom: "1px solid #F1F5F9", display: "flex", alignItems: "center", gap: 10 }}>
+          <div style={{ width: 36, height: 36, borderRadius: 10, backgroundColor: "#F8FAFC", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
             <LogOut size={18} color="#64748B" />
           </div>
-          <div>
+          <div style={{ minWidth: 0 }}>
             <h2 style={{ fontSize: 15, fontWeight: 600, color: "#111827", margin: 0 }}>Account</h2>
             <p style={{ fontSize: 12, color: "#64748B", margin: "2px 0 0" }}>Manage your account</p>
           </div>
         </div>
-        <div style={{ padding: "20px 24px", display: "flex", gap: 12 }}>
+        <div style={{ padding: "clamp(14px, 3vw, 20px) clamp(14px, 3vw, 24px)", display: "flex", gap: 12, flexWrap: "wrap" }}>
           <button onClick={() => {
             localStorage.removeItem("admin_auth");
             window.location.href = "/admin/login";

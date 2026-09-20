@@ -146,12 +146,12 @@ export default function ServicesPage() {
         </div>
       )}
 
-      <div className={editing ? "grid grid-cols-1 lg:grid-cols-[1fr_380px]" : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"} style={{ gap: 16 }}>
+      <div className={editing ? "grid grid-cols-1 lg:grid-cols-[1fr_380px]" : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"} style={{ gap: "clamp(10px, 2vw, 16px)" }}>
         {services.map((s, i) => (
           <div key={s.id} onClick={() => { setEditing(s); setIsAdding(false); }} className="service-card" style={{
-            background: "#FFFFFF", borderRadius: 14, padding: 22, cursor: "pointer",
+            background: "#FFFFFF", borderRadius: 14, padding: "clamp(14px, 3vw, 22px)", cursor: "pointer",
             border: editing?.id === s.id ? "2px solid #4A78F6" : "1px solid #E5EAF2",
-            opacity: s.is_active ? 1 : 0.5,
+            opacity: s.is_active ? 1 : 0.5, minWidth: 0,
             animation: `fadeInUp 0.3s ease ${i * 0.05}s both`,
           }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 12 }}>
@@ -180,13 +180,13 @@ export default function ServicesPage() {
 
         {editing && (
           <div className="service-panel" style={{ background: "#FFFFFF", borderRadius: 14, border: "1px solid #E5EAF2", overflow: "hidden" }}>
-            <div style={{ padding: "18px 22px", borderBottom: "1px solid #F1F5F9", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <div style={{ padding: "clamp(12px, 3vw, 18px) clamp(12px, 3vw, 22px)", borderBottom: "1px solid #F1F5F9", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               <h3 style={{ fontSize: 15, fontWeight: 600, color: "#111827", margin: 0 }}>{isAdding ? "Add Service" : "Edit Service"}</h3>
               <button onClick={cancelEdit} className="admin-btn" style={{ background: "#F8FAFC", border: "1px solid #E5EAF2", borderRadius: 8, width: 32, height: 32, cursor: "pointer", color: "#64748B", display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <X size={16} />
               </button>
             </div>
-            <div style={{ padding: 22 }}>
+            <div style={{ padding: "clamp(14px, 3vw, 22px)" }}>
               {[["Title", "title"], ["Subtitle", "subtitle"], ["Price", "price"], ["Price Note", "price_note"]].map(([label, key]) => (
                 <div key={key} style={{ marginBottom: 16 }}>
                   <label style={{ display: "block", fontSize: 13, fontWeight: 500, color: "#374151", marginBottom: 6 }}>{label} {(key === "title" || key === "price" || key === "subtitle") ? "*" : ""}</label>

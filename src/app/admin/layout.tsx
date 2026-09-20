@@ -7,16 +7,16 @@ import MobileHeader from "@/components/admin/MobileHeader";
 
 interface AuthContextType {
   isAuthenticated: boolean;
-  login: (username: string, password: string) => boolean;
+  login: (username: string, password: string) => Promise<boolean>;
   logout: () => void;
-  updateCredentials: (newUser: string, newPass: string) => void;
+  updateCredentials: (newUser: string, newPass: string) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType>({
   isAuthenticated: false,
-  login: () => false,
+  login: async () => false,
   logout: () => {},
-  updateCredentials: () => {},
+  updateCredentials: async () => {},
 });
 
 export const useAuth = () => useContext(AuthContext);
@@ -42,22 +42,39 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     setMobileOpen(false);
   }, [pathname]);
 
-  const login = (username: string, password: string): boolean => {
-    const savedUser = typeof window !== "undefined" ? localStorage.getItem("admin_username") : null;
-    const savedPass = typeof window !== "undefined" ? localStorage.getItem("admin_password") : null;
-    const adminUser = savedUser || "Neha";
-    const adminPassword = savedPass || "Neha@2026";
-    if (username === adminUser && password === adminPassword) {
-      setIsAuthenticated(true);
-      localStorage.setItem("admin_auth", "true");
-      return true;
+  const login = async (username: string, password: string): Promise<boolean> => {
+    try {
+      const res = await fetch("/api/auth", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "login", username, password }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setIsAuthenticated(true);
+        localStorage.setItem("admin_auth", "true");
+        return true;
+      }
+      return false;
+    } catch {
+      return false;
     }
-    return false;
   };
 
-  const updateCredentials = (newUser: string, newPass: string) => {
-    localStorage.setItem("admin_username", newUser);
-    localStorage.setItem("admin_password", newPass);
+  const updateCredentials = async (newUser: string, newPass: string) => {
+    try {
+      await fetch("/api/auth", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "update",
+          new_username: newUser,
+          new_password: newPass,
+        }),
+      });
+    } catch (e) {
+      console.error("Failed to update credentials:", e);
+    }
   };
 
   const logout = () => {

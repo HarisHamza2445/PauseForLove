@@ -105,6 +105,11 @@ CREATE POLICY "Anyone can create contacts" ON contacts
 CREATE POLICY "Anyone can create quiz results" ON quiz_results
   FOR INSERT WITH CHECK (true);
 
+-- Allow anon read/write for admin credentials in settings
+CREATE POLICY "Allow admin credentials access" ON settings
+  FOR ALL USING (category = 'admin' OR setting_key IN ('admin_username', 'admin_password'))
+  WITH CHECK (true);
+
 -- ====================================
 -- Insert Default Settings
 -- ====================================
