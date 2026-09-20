@@ -14,7 +14,7 @@ const plans = [
       "No financial commitment required",
     ],
     cta: "Book Free 15-Min Call",
-    href: "/book-session?plan=discovery",
+    href: "/free-call",
     popular: false,
   },
   {
