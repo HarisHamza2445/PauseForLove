@@ -45,8 +45,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const login = (username: string, password: string): boolean => {
     const savedUser = typeof window !== "undefined" ? localStorage.getItem("admin_username") : null;
     const savedPass = typeof window !== "undefined" ? localStorage.getItem("admin_password") : null;
-    const adminUser = savedUser || process.env.NEXT_PUBLIC_ADMIN_USERNAME || "Neha";
-    const adminPassword = savedPass || process.env.NEXT_PUBLIC_ADMIN_PASSWORD || "Neha@2026";
+    const adminUser = savedUser || "Neha";
+    const adminPassword = savedPass || "Neha@2026";
     if (username === adminUser && password === adminPassword) {
       setIsAuthenticated(true);
       localStorage.setItem("admin_auth", "true");
@@ -97,9 +97,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
       {/* Desktop */}
       {!isMobile && (
-        <div style={{ display: "flex", minHeight: "100vh", background: "#F8FAFC" }}>
+        <div style={{ display: "flex", minHeight: "100vh", background: "#F8FAFC", overflow: "hidden" }}>
           <Sidebar />
-          <main style={{ flex: 1, marginLeft: 272 }}>
+          <main style={{ flex: 1, marginLeft: 272, minWidth: 0 }}>
             <div className="admin-page" style={{ padding: "32px", maxWidth: 1200 }}>
               {children}
             </div>
@@ -138,7 +138,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <Sidebar onClose={() => setMobileOpen(false)} />
           </div>
 
-          <div className="admin-page" style={{ padding: "76px 16px 24px" }}>
+          <div className="admin-page" style={{ padding: "76px 12px 24px", overflowX: "hidden" }}>
             {children}
           </div>
         </div>

@@ -50,7 +50,7 @@ export default function SettingsPage() {
 
   const changeCredentials = () => {
     setCredMsg("");
-    const defaultPass = process.env.NEXT_PUBLIC_ADMIN_PASSWORD || "pass123";
+    const defaultPass = "Neha@2026";
     const savedPass = localStorage.getItem("admin_password") || defaultPass;
 
     if (credentials.current_password !== savedPass) {
