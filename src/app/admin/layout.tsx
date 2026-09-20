@@ -45,8 +45,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const login = (username: string, password: string): boolean => {
     const savedUser = typeof window !== "undefined" ? localStorage.getItem("admin_username") : null;
     const savedPass = typeof window !== "undefined" ? localStorage.getItem("admin_password") : null;
-    const adminUser = savedUser || process.env.NEXT_PUBLIC_ADMIN_USERNAME || "PFL";
-    const adminPassword = savedPass || process.env.NEXT_PUBLIC_ADMIN_PASSWORD || "pass123";
+    const adminUser = savedUser || process.env.NEXT_PUBLIC_ADMIN_USERNAME || "Neha";
+    const adminPassword = savedPass || process.env.NEXT_PUBLIC_ADMIN_PASSWORD || "Neha@2026";
     if (username === adminUser && password === adminPassword) {
       setIsAuthenticated(true);
       localStorage.setItem("admin_auth", "true");
