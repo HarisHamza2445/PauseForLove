@@ -100,12 +100,12 @@ export default function HeroSection() {
                   <path d="M5 12h14M12 5l7 7-7 7" />
                 </svg>
               </Link>
-              <Link
-                href="/match-quiz"
+              <a
+                href="#quiz"
                 className="btn-outline"
               >
                 Take Therapy Match Quiz
-              </Link>
+              </a>
             </div>
 
             {/* Bottom credentials */}

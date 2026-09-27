@@ -55,7 +55,7 @@ export default function TherapyMatchQuiz() {
   const currentQuestion = questions[currentStep];
 
   return (
-    <section style={{ backgroundColor: "#FAF8F5" }}>
+    <section id="quiz" style={{ backgroundColor: "#FAF8F5" }}>
       <div
         className="mx-auto px-4 py-12 sm:px-6 sm:py-16 lg:px-12 lg:py-24"
         style={{ maxWidth: "800px" }}
