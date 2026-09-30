@@ -11,7 +11,7 @@ export const metadata = {
 
 export default function BookSessionPage() {
   return (
-    <div className="min-h-screen bg-[#FAF8F5]">
+    <div className="min-h-screen bg-[#E0F2FE]">
       <SafetyBanner />
       <Navbar />
       <div>

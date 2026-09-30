@@ -207,7 +207,7 @@ export default function BookingSystem() {
 
   if (bookingSuccess) {
     return (
-      <section ref={sectionRef} style={{ backgroundColor: "#FAF8F5" }}>
+      <section ref={sectionRef} style={{ backgroundColor: "#E0F2FE" }}>
         <div className="mx-auto px-6 py-16 lg:px-12 lg:py-24" style={{ maxWidth: "900px" }}>
           {/* Step Indicator - All Complete */}
           <div style={{ display: "flex", justifyContent: "center", gap: "8px", marginBottom: "40px" }}>
@@ -273,7 +273,7 @@ export default function BookingSystem() {
   }
 
   return (
-    <section ref={sectionRef} style={{ backgroundColor: "#FAF8F5" }}>
+    <section ref={sectionRef} style={{ backgroundColor: "#E0F2FE" }}>
       <div className="mx-auto px-6 py-16 lg:px-12 lg:py-24" style={{ maxWidth: "900px" }}>
         {/* Header */}
         <div style={{ textAlign: "center", marginBottom: "48px" }}>

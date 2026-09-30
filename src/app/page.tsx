@@ -14,7 +14,7 @@ import ScrollToTop from "@/components/ScrollToTop";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-[#FAF8F5]">
+    <div className="min-h-screen bg-[#E0F2FE]">
       <SafetyBanner />
       <Navbar />
       <HeroSection />

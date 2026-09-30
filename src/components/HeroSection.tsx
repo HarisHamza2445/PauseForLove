@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function HeroSection() {
   return (
-    <section style={{ backgroundColor: "#FAF8F5" }}>
+    <section style={{ backgroundColor: "#E0F2FE" }}>
       <div
         className="mx-auto px-4 py-10 sm:px-6 sm:py-12 lg:px-12 lg:py-16"
         style={{

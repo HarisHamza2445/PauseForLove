@@ -1,6 +1,6 @@
 export default function AboutTherapist() {
   return (
-    <section style={{ backgroundColor: "#FAF8F5" }}>
+    <section style={{ backgroundColor: "#E0F2FE" }}>
       <div
         className="mx-auto px-6 py-16 lg:px-12 lg:py-24"
         style={{ maxWidth: "1100px" }}

@@ -64,7 +64,7 @@ export default function FreeCallPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF8F5]">
+    <div className="min-h-screen bg-[#E0F2FE]">
       <SafetyBanner />
       <Navbar />
 
