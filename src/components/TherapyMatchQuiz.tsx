@@ -1,41 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import { DEFAULT_CONTENT, list, type SiteContent } from "@/lib/content";
 
-const questions = [
-  {
-    question: "What is currently weighing heaviest on your heart and mind?",
-    subtitle: "Select the area that feels most urgent to examine.",
-    options: [
-      "Feeling drained, second-guessing myself after a toxic relationship or parent",
-      "Communication breakdown or recurring resentment with my partner/family",
-      "Constant anxiety, burnout, feeling overwhelmed, or persistent emotional sadness",
-      "I am new to therapy and want to ask questions before diving deep",
-    ],
-  },
-  {
-    question: "How do you typically process difficult emotions?",
-    subtitle: "There are no wrong answers — this helps me meet you where you are.",
-    options: [
-      "I tend to suppress them and keep going until I crash",
-      "I replay conversations and overthink what I could have said",
-      "I feel physically tense, restless, or unable to sleep",
-      "I prefer to talk things through with someone I trust",
-    ],
-  },
-  {
-    question: "What does a successful therapy outcome look like for you?",
-    subtitle: "Your vision shapes the approach we take together.",
-    options: [
-      "Feeling safe enough to set boundaries without guilt",
-      "Having healthier, more honest relationships",
-      "Managing my anxiety so it doesn't run my life",
-      "Understanding myself on a deeper level",
-    ],
-  },
-];
 
-export default function TherapyMatchQuiz() {
+export default function TherapyMatchQuiz({ c = DEFAULT_CONTENT }: { c?: SiteContent }) {
+  const questions = [1, 2, 3].map((n) => ({
+    question: c[`quiz.q${n}`],
+    subtitle: c[`quiz.q${n}_sub`],
+    options: list(c[`quiz.q${n}_options`]),
+  }));
   const [currentStep, setCurrentStep] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState<number[]>([]);
 
@@ -78,7 +52,7 @@ export default function TherapyMatchQuiz() {
               textTransform: "uppercase",
             }}
           >
-            Interactive Assessment
+            {c["quiz.badge"]}
           </div>
 
           <h2
@@ -92,7 +66,7 @@ export default function TherapyMatchQuiz() {
               letterSpacing: "-0.01em",
             }}
           >
-            Therapy Match Quiz
+            {c["quiz.heading"]}
           </h2>
 
           <p
@@ -104,8 +78,7 @@ export default function TherapyMatchQuiz() {
               margin: "0 auto",
             }}
           >
-            Unsure which session structure meets you where you are today? Answer
-            3 gentle questions to determine the ideal path forward.
+            {c["quiz.description"]}
           </p>
         </div>
 

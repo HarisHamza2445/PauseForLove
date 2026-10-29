@@ -1,4 +1,6 @@
-export default function AboutTherapist() {
+import { DEFAULT_CONTENT, type SiteContent } from "@/lib/content";
+
+export default function AboutTherapist({ c = DEFAULT_CONTENT }: { c?: SiteContent }) {
   return (
     <section style={{ backgroundColor: "#E0F2FE" }}>
       <div
@@ -29,7 +31,7 @@ export default function AboutTherapist() {
           >
             <img
               src="/Neha.jpeg"
-              alt="Neha - Therapist"
+              alt={`${c["hero.name"]} - Therapist`}
               style={{
                 width: "100%",
                 height: "100%",
@@ -57,7 +59,7 @@ export default function AboutTherapist() {
               textTransform: "uppercase",
             }}
           >
-            About Your Therapist
+            {c["about.badge"]}
           </div>
 
           {/* Heading */}
@@ -72,8 +74,8 @@ export default function AboutTherapist() {
               letterSpacing: "-0.01em",
             }}
           >
-            Meet Neha, M.A.{" "}
-            <span style={{ fontStyle: "italic" }}>Psychology</span>
+            {c["about.heading"]}{" "}
+            <span style={{ fontStyle: "italic" }}>{c["about.heading_italic"]}</span>
           </h2>
 
           {/* Bio Paragraphs - Centered */}
@@ -86,9 +88,7 @@ export default function AboutTherapist() {
                 marginBottom: "20px",
               }}
             >
-              I believe that therapy is not about fixing what is broken; it is
-              about uncovering the intrinsic wisdom and resilience that life
-              trauma, toxic relationships, and chronic stress have obscured.
+              {c["about.bio1"]}
             </p>
 
             <p
@@ -99,12 +99,7 @@ export default function AboutTherapist() {
                 marginBottom: "32px",
               }}
             >
-              Holding a Master&apos;s degree in Psychology with specialized
-              post-graduate training in trauma-informed counseling and cognitive
-              behavioral interventions, I combine clinical rigor with authentic
-              human presence. I have helped hundreds of survivors of narcissistic
-              abuse, divorce, panic disorders, and deep family estrangements
-              rebuild their lives from a place of grounded self-worth.
+              {c["about.bio2"]}
             </p>
 
             {/* Quote */}
@@ -123,8 +118,7 @@ export default function AboutTherapist() {
                   lineHeight: 1.6,
                 }}
               >
-                &ldquo;When you pause for love, you start with
-                yourself.&rdquo;
+                &ldquo;{c["about.quote"]}&rdquo;
               </p>
             </div>
           </div>
@@ -151,8 +145,8 @@ export default function AboutTherapist() {
               textAlign: "center",
             }}
           >
-            Clinical Ethics{" "}
-            <span style={{ fontStyle: "italic" }}>&amp; Standards</span>
+            {c["about.ethics_heading"]}{" "}
+            <span style={{ fontStyle: "italic" }}>{c["about.ethics_heading_italic"]}</span>
           </h3>
           <p
             style={{
@@ -163,7 +157,7 @@ export default function AboutTherapist() {
               textAlign: "center",
             }}
           >
-            The non-negotiable principles anchoring every interaction:
+            {c["about.ethics_intro"]}
           </p>
 
           {/* Ethics Grid */}
@@ -198,7 +192,7 @@ export default function AboutTherapist() {
                   marginBottom: "8px",
                 }}
               >
-                Strict Confidentiality Guarantee
+                {c["about.ethic1_title"]}
               </h4>
               <p
                 style={{
@@ -208,8 +202,7 @@ export default function AboutTherapist() {
                   margin: 0,
                 }}
               >
-                Everything shared within sessions or through our intake portal is
-                fully confidential under standard psychological ethics.
+                {c["about.ethic1_text"]}
               </p>
             </div>
 
@@ -240,7 +233,7 @@ export default function AboutTherapist() {
                   marginBottom: "8px",
                 }}
               >
-                Zero-Gaslighting, Affirming Space
+                {c["about.ethic2_title"]}
               </h4>
               <p
                 style={{
@@ -250,8 +243,7 @@ export default function AboutTherapist() {
                   margin: 0,
                 }}
               >
-                Your experiences and emotional truths will never be minimized or
-                doubted.
+                {c["about.ethic2_text"]}
               </p>
             </div>
 
@@ -282,7 +274,7 @@ export default function AboutTherapist() {
                   marginBottom: "8px",
                 }}
               >
-                Client-Paced Progression
+                {c["about.ethic3_title"]}
               </h4>
               <p
                 style={{
@@ -292,8 +284,7 @@ export default function AboutTherapist() {
                   margin: 0,
                 }}
               >
-                You retain full agency over which memories, relationships, or
-                coping systems we open up during each session.
+                {c["about.ethic3_text"]}
               </p>
             </div>
           </div>

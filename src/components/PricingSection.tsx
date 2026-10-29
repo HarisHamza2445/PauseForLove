@@ -1,6 +1,8 @@
 import Link from "next/link";
+import { DEFAULT_CONTENT, type SiteContent } from "@/lib/content";
+import type { PublicService } from "@/lib/site-data";
 
-const plans = [
+const defaultPlans = [
   {
     badge: null,
     title: "Discovery Call",
@@ -51,7 +53,41 @@ const plans = [
   },
 ];
 
-export default function PricingSection() {
+// Pick a booking link for a plan from its title.
+function hrefFor(title: string): string {
+  const t = title.toLowerCase();
+  if (t.includes("discovery") || t.includes("free")) return "/free-call";
+  if (t.includes("couple") || t.includes("family")) return "/book-session?plan=couple";
+  if (t.includes("individual")) return "/book-session?plan=individual";
+  return "/book-session";
+}
+
+export default function PricingSection({
+  c = DEFAULT_CONTENT,
+  services = null,
+}: {
+  c?: SiteContent;
+  services?: PublicService[] | null;
+}) {
+  // Plans come from Admin → Services when available; otherwise the built-in list.
+  const plans = (services
+    ? services.map((s) => ({
+        title: s.title,
+        subtitle: s.subtitle || "",
+        price: s.price,
+        priceNote: s.price_note || "",
+        features: Array.isArray(s.features) ? s.features : [],
+        href: hrefFor(s.title),
+        popular: s.is_popular,
+        cta: "",
+      }))
+    : defaultPlans
+  ).map((p, i) => ({
+    ...p,
+    badge: p.popular ? c["pricing.popular_badge"] : null,
+    cta: c[`pricing.cta${i + 1}`] || "Book Session",
+  }));
+
   return (
     <section style={{ backgroundColor: "#FFFFFF" }}>
       <div
@@ -76,7 +112,7 @@ export default function PricingSection() {
               textTransform: "uppercase",
             }}
           >
-            Transparent & Ethical Care
+            {c["pricing.badge"]}
           </div>
 
           <h2
@@ -90,7 +126,7 @@ export default function PricingSection() {
               letterSpacing: "-0.01em",
             }}
           >
-            Services & Advance Consultation Fees
+            {c["pricing.heading"]}
           </h2>
 
           <p
@@ -102,8 +138,7 @@ export default function PricingSection() {
               margin: "0 auto",
             }}
           >
-            Clear, upfront fees with zero hidden costs. All consultations are
-            booked in advance to ensure dedicated time without interruptions.
+            {c["pricing.description"]}
           </p>
         </div>
 
@@ -313,11 +348,7 @@ export default function PricingSection() {
               margin: 0,
             }}
           >
-            <strong>Advance Booking & Cancellation Policy:</strong> All
-            appointments must be confirmed in advance. Because therapy slots are
-            reserved exclusively for you, cancellations or rescheduling requests
-            must be notified at least 16 hours prior to the scheduled time;
-            otherwise, a 50% reservation retention fee applies.
+            <strong>{c["pricing.policy_title"]}</strong> {c["pricing.policy_text"]}
           </p>
         </div>
       </div>

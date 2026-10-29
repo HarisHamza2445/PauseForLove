@@ -1,6 +1,7 @@
 import Link from "next/link";
+import { DEFAULT_CONTENT, type SiteContent } from "@/lib/content";
 
-export default function HeroSection() {
+export default function HeroSection({ c = DEFAULT_CONTENT }: { c?: SiteContent }) {
   return (
     <section style={{ backgroundColor: "#E0F2FE" }}>
       <div
@@ -36,7 +37,7 @@ export default function HeroSection() {
               <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
               </svg>
-              Accepting New In-Person &amp; Online Clients
+              {c["hero.badge"]}
             </div>
 
             {/* Heading */}
@@ -51,9 +52,9 @@ export default function HeroSection() {
                 letterSpacing: "-0.01em",
               }}
             >
-              Find Healing, Rebuild Boundaries, &amp;
+              {c["hero.heading"]}
               <br />
-              <span style={{ color: "#3B5BDB" }}>Pause for Love.</span>
+              <span style={{ color: "#3B5BDB" }}>{c["hero.heading_highlight"]}</span>
             </h1>
 
             {/* Description */}
@@ -66,10 +67,7 @@ export default function HeroSection() {
                 marginBottom: "40px",
               }}
             >
-              A confidential, evidence-informed therapeutic sanctuary led by
-              Neha, M.A. Psychology. Specializing in recovery from narcissistic
-              abuse, restoring relationship intimacy, and rediscovering peaceful
-              emotional autonomy.
+              {c["hero.description"]}
             </p>
 
             {/* CTA Buttons */}
@@ -86,7 +84,7 @@ export default function HeroSection() {
                 href="/book-session"
                 className="btn-primary"
               >
-                Book 1-Hour Session
+                {c["hero.cta_primary"]}
                 <svg
                   width="18"
                   height="18"
@@ -104,7 +102,7 @@ export default function HeroSection() {
                 href="#quiz"
                 className="btn-outline"
               >
-                Take Therapy Match Quiz
+                {c["hero.cta_secondary"]}
               </a>
             </div>
 
@@ -138,8 +136,8 @@ export default function HeroSection() {
                   </svg>
                 </div>
                 <div>
-                  <div style={{ fontSize: "13px", fontWeight: 600, color: "#1A1A2E" }}>M.A. Psychology</div>
-                  <div style={{ fontSize: "12px", color: "#6B7280" }}>Clinical Counseling Spec</div>
+                  <div style={{ fontSize: "13px", fontWeight: 600, color: "#1A1A2E" }}>{c["hero.cred1_title"]}</div>
+                  <div style={{ fontSize: "12px", color: "#6B7280" }}>{c["hero.cred1_text"]}</div>
                 </div>
               </div>
 
@@ -163,8 +161,8 @@ export default function HeroSection() {
                   </svg>
                 </div>
                 <div>
-                  <div style={{ fontSize: "13px", fontWeight: 600, color: "#1A1A2E" }}>100% Confidential</div>
-                  <div style={{ fontSize: "12px", color: "#6B7280" }}>Protected Safe Space</div>
+                  <div style={{ fontSize: "13px", fontWeight: 600, color: "#1A1A2E" }}>{c["hero.cred2_title"]}</div>
+                  <div style={{ fontSize: "12px", color: "#6B7280" }}>{c["hero.cred2_text"]}</div>
                 </div>
               </div>
 
@@ -188,8 +186,8 @@ export default function HeroSection() {
                   </svg>
                 </div>
                 <div>
-                  <div style={{ fontSize: "13px", fontWeight: 600, color: "#1A1A2E" }}>Hybrid Practice</div>
-                  <div style={{ fontSize: "12px", color: "#6B7280" }}>Gurgaon Clinic &amp; Zoom</div>
+                  <div style={{ fontSize: "13px", fontWeight: 600, color: "#1A1A2E" }}>{c["hero.cred3_title"]}</div>
+                  <div style={{ fontSize: "12px", color: "#6B7280" }}>{c["hero.cred3_text"]}</div>
                 </div>
               </div>
             </div>
@@ -221,7 +219,7 @@ export default function HeroSection() {
                       justifyContent: "center",
                     }}
                   >
-                    <span style={{ fontSize: "26px", fontWeight: 700, color: "#3B5BDB" }}>N</span>
+                    <span style={{ fontSize: "26px", fontWeight: 700, color: "#3B5BDB" }}>{c["hero.name"].charAt(0)}</span>
                   </div>
                   <div
                     style={{
@@ -238,13 +236,13 @@ export default function HeroSection() {
                 </div>
                 <div>
                   <h3 style={{ fontSize: "24px", fontWeight: 700, color: "#1A1A2E", lineHeight: 1.2, margin: 0 }}>
-                    Neha
+                    {c["hero.name"]}
                   </h3>
                   <p style={{ fontSize: "14px", color: "#6B7280", lineHeight: 1.4, margin: 0 }}>
-                    M.A. Psychology | Counselling Therapist
+                    {c["hero.title"]}
                   </p>
                   <p style={{ fontSize: "14px", fontWeight: 600, color: "#3B5BDB", lineHeight: 1.4, margin: 0, marginTop: "4px" }}>
-                    8+ Years Clinical Experience
+                    {c["hero.experience"]}
                   </p>
                 </div>
               </div>
@@ -266,9 +264,7 @@ export default function HeroSection() {
                     margin: 0,
                   }}
                 >
-                  &quot;Recovery is not about becoming who you were before
-                  trauma; it is about gently shedding who you had to be to
-                  survive it.&quot;
+                  &quot;{c["hero.quote"]}&quot;
                 </p>
               </div>
 
@@ -286,16 +282,16 @@ export default function HeroSection() {
                 }}
               >
                 <div style={{ textAlign: "center" }}>
-                  <div style={{ fontSize: "clamp(20px, 4vw, 26px)", fontWeight: 700, color: "#3B5BDB", lineHeight: 1.1 }}>1,200+</div>
-                  <div style={{ fontSize: "clamp(11px, 2vw, 13px)", color: "#6B7280", marginTop: "4px" }}>Hours Held</div>
+                  <div style={{ fontSize: "clamp(20px, 4vw, 26px)", fontWeight: 700, color: "#3B5BDB", lineHeight: 1.1 }}>{c["hero.stat1_value"]}</div>
+                  <div style={{ fontSize: "clamp(11px, 2vw, 13px)", color: "#6B7280", marginTop: "4px" }}>{c["hero.stat1_label"]}</div>
                 </div>
                 <div style={{ textAlign: "center" }}>
-                  <div style={{ fontSize: "clamp(20px, 4vw, 26px)", fontWeight: 700, color: "#3B5BDB", lineHeight: 1.1 }}>100%</div>
-                  <div style={{ fontSize: "clamp(11px, 2vw, 13px)", color: "#6B7280", marginTop: "4px" }}>Non-Judgmental</div>
+                  <div style={{ fontSize: "clamp(20px, 4vw, 26px)", fontWeight: 700, color: "#3B5BDB", lineHeight: 1.1 }}>{c["hero.stat2_value"]}</div>
+                  <div style={{ fontSize: "clamp(11px, 2vw, 13px)", color: "#6B7280", marginTop: "4px" }}>{c["hero.stat2_label"]}</div>
                 </div>
                 <div style={{ textAlign: "center" }}>
-                  <div style={{ fontSize: "clamp(16px, 3vw, 20px)", fontWeight: 700, color: "#3B5BDB", lineHeight: 1.1 }}>Mon–Fri</div>
-                  <div style={{ fontSize: "clamp(11px, 2vw, 13px)", color: "#6B7280", marginTop: "4px" }}>9 AM – 5 PM</div>
+                  <div style={{ fontSize: "clamp(16px, 3vw, 20px)", fontWeight: 700, color: "#3B5BDB", lineHeight: 1.1 }}>{c["hero.stat3_value"]}</div>
+                  <div style={{ fontSize: "clamp(11px, 2vw, 13px)", color: "#6B7280", marginTop: "4px" }}>{c["hero.stat3_label"]}</div>
                 </div>
               </div>
 
@@ -315,7 +311,7 @@ export default function HeroSection() {
                   <polyline points="20 6 9 17 4 12" />
                 </svg>
                 <span style={{ lineHeight: 1.4 }}>
-                  Advance booking required • Strict 16h cancellation window
+                  {c["hero.booking_note"]}
                 </span>
               </div>
             </div>

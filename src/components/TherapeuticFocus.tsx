@@ -1,6 +1,7 @@
 import Link from "next/link";
+import { DEFAULT_CONTENT, list, type SiteContent } from "@/lib/content";
 
-const services = [
+const cards = [
   {
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#DC2626" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -8,11 +9,6 @@ const services = [
         <path d="M9 12l2 2 4-4" />
       </svg>
     ),
-    title: "Recovery from Narcissistic Abuse",
-    description:
-      "Overcoming the destabilizing cycle of gaslighting, emotional manipulation, and cognitive dissonance. We gently unravel trauma bonds and re-anchor your trust in your own reality.",
-    tags: ["Gaslighting Recovery", "Boundary Restoration", "Trauma Bonding"],
-    cta: "Book Healing Session",
     href: "/book-session",
   },
   {
@@ -24,11 +20,6 @@ const services = [
         <path d="M16 3.13a4 4 0 0 1 0 7.75" />
       </svg>
     ),
-    title: "Relationship & Family Counseling",
-    description:
-      "Navigating communication impasses, systemic family stressors, infidelity fractures, and codependency. Designed for individuals or couples seeking emotionally authentic alignment.",
-    tags: ["Healthy Conflict", "Intimacy & Attachment", "Family Dynamics"],
-    cta: "Explore Couple/Family Care",
     href: "/book-session",
   },
   {
@@ -37,16 +28,18 @@ const services = [
         <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
       </svg>
     ),
-    title: "Depression & Anxiety Management",
-    description:
-      "Practical coping architectures to regulate heightened nervous systems, disrupt depressive paralysis, eliminate chronic self-doubt, and reconnect with meaningful daily vitality.",
-    tags: ["CBT Tools", "Somatic Grounding", "Emotional Regulation"],
-    cta: "Start Anxious Mind Relief",
     href: "/book-session",
   },
 ];
 
-export default function TherapeuticFocus() {
+export default function TherapeuticFocus({ c = DEFAULT_CONTENT }: { c?: SiteContent }) {
+  const services = cards.map((card, i) => ({
+    ...card,
+    title: c[`focus.card${i + 1}_title`],
+    description: c[`focus.card${i + 1}_text`],
+    tags: list(c[`focus.card${i + 1}_tags`]),
+    cta: c[`focus.card${i + 1}_cta`],
+  }));
   return (
     <section style={{ backgroundColor: "#FFFFFF" }}>
       <div
@@ -71,7 +64,7 @@ export default function TherapeuticFocus() {
               textTransform: "uppercase",
             }}
           >
-            Therapeutic Focus
+            {c["focus.badge"]}
           </div>
 
           <h2
@@ -85,7 +78,7 @@ export default function TherapeuticFocus() {
               letterSpacing: "-0.01em",
             }}
           >
-            Compassionate, Tailored Interventions
+            {c["focus.heading"]}
           </h2>
 
           <p
@@ -97,9 +90,7 @@ export default function TherapeuticFocus() {
               margin: "0 auto",
             }}
           >
-            Every human journey holds unique complexities. My practice
-            integrates psychodynamic insights, Cognitive Behavioral Therapy
-            (CBT), and somatic nervous system grounding.
+            {c["focus.description"]}
           </p>
         </div>
 
@@ -110,7 +101,7 @@ export default function TherapeuticFocus() {
         >
           {services.map((service) => (
             <div
-              key={service.title}
+              key={service.href + service.title}
               style={{
                 backgroundColor: "#FAFAFA",
                 borderRadius: "16px",

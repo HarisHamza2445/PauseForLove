@@ -3,12 +3,14 @@
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { LayoutDashboard, CalendarDays, DollarSign, Settings, LogOut } from "lucide-react";
+import { LayoutDashboard, CalendarDays, DollarSign, Settings, LogOut, FileText, MessageSquareHeart } from "lucide-react";
 
 const navItems = [
   { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
   { label: "Bookings", href: "/admin/bookings", icon: CalendarDays },
   { label: "Services", href: "/admin/services", icon: DollarSign },
+  { label: "Website Content", href: "/admin/content", icon: FileText },
+  { label: "Feedback", href: "/admin/feedback", icon: MessageSquareHeart },
   { label: "Settings", href: "/admin/settings", icon: Settings },
 ];
 

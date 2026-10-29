@@ -1,4 +1,6 @@
-export default function Footer() {
+import { DEFAULT_CONTENT, type SiteContent } from "@/lib/content";
+
+export default function Footer({ c = DEFAULT_CONTENT }: { c?: SiteContent }) {
   return (
     <footer style={{ backgroundColor: "#1A1A2E", color: "#D1D5DB" }}>
       <div
@@ -17,13 +19,13 @@ export default function Footer() {
                 fontFamily: "var(--font-heading)",
               }}
             >
-              Pause for Love
+              {c["footer.brand"]}
             </h3>
             <p style={{ fontSize: "14px", lineHeight: 1.7, color: "#9CA3AF", marginBottom: "20px" }}>
-              Psychological counselling and compassionate relational healing practice led by Neha, M.A. Psychology. Based at DLF Phase 1, Gurgaon, and available worldwide via secure video.
+              {c["footer.about"]}
             </p>
             <p style={{ fontSize: "13px", color: "#6B7280" }}>
-              © 2025 Pause for Love. All rights reserved.
+              {c["footer.copyright"]}
             </p>
           </div>
 
@@ -40,9 +42,16 @@ export default function Footer() {
               Navigation
             </h4>
             <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "10px" }}>
-              {["About Neha", "Core Specializations", "Fees & Policy", "Therapy Match Quiz", "Gurgaon Clinic Suite"].map((item) => (
-                <li key={item}>
-                  <a href="#" style={{ fontSize: "14px", color: "#9CA3AF", textDecoration: "none" }}>
+              {[
+                { label: c["nav.about"], href: "/#about" },
+                { label: c["nav.specializations"], href: "/#specializations" },
+                { label: c["nav.services"], href: "/#services" },
+                { label: c["nav.quiz"], href: "/#match-quiz" },
+                { label: c["nav.clinic"], href: "/#clinic" },
+                { label: c["nav.feedback"], href: "/#feedback" },
+              ].map(({ label: item, href }) => (
+                <li key={href}>
+                  <a href={href} style={{ fontSize: "14px", color: "#9CA3AF", textDecoration: "none" }}>
                     {item}
                   </a>
                 </li>
@@ -83,19 +92,19 @@ export default function Footer() {
                 marginBottom: "16px",
               }}
             >
-              Emergency Helplines
+              {c["footer.emergency_heading"]}
             </h4>
             <p style={{ fontSize: "14px", color: "#9CA3AF", marginBottom: "8px" }}>
-              For immediate psychiatric crisis:
+              {c["footer.emergency_intro"]}
             </p>
             <p style={{ fontSize: "14px", color: "#9CA3AF", marginBottom: "4px" }}>
-              <span style={{ fontWeight: 700, color: "#D1D5DB" }}>Tele-MANAS: 14416</span>
+              <span style={{ fontWeight: 700, color: "#D1D5DB" }}>{c["footer.emergency_line1"]}</span>
             </p>
             <p style={{ fontSize: "14px", color: "#9CA3AF", marginBottom: "12px" }}>
-              <span style={{ fontWeight: 700, color: "#D1D5DB" }}>Vandrevala Foundation: +91 9999 666 555</span>
+              <span style={{ fontWeight: 700, color: "#D1D5DB" }}>{c["footer.emergency_line2"]}</span>
             </p>
             <p style={{ fontSize: "13px", color: "#6B7280", lineHeight: 1.6 }}>
-              Pause for Love is an outpatient practice and does not offer 24/7 psychiatric emergency services.
+              {c["footer.emergency_note"]}
             </p>
           </div>
         </div>
@@ -110,7 +119,7 @@ export default function Footer() {
         }}
       >
         <p style={{ fontSize: "13px", color: "#6B7280" }}>
-          Strict Client Confidentiality Protected • Professional Psychological Practice Standards
+          {c["footer.bottom"]}
         </p>
       </div>
     </footer>

@@ -3,17 +3,21 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import { DEFAULT_CONTENT, type SiteContent } from "@/lib/content";
 
-const navLinks = [
-  { label: "About", href: "#about", id: "about" },
-  { label: "Specializations", href: "#specializations", id: "specializations" },
-  { label: "Match Quiz", href: "#match-quiz", id: "match-quiz", lines: 2 },
-  { label: "Services & Fees", href: "#services", id: "services", lines: 2 },
-  { label: "Gurgaon Clinic", href: "#clinic", id: "clinic", lines: 2 },
-  { label: "Mindful Space", href: "#mindful-space", id: "mindful-space", lines: 2 },
+const navItems = [
+  { key: "nav.about", id: "about" },
+  { key: "nav.specializations", id: "specializations" },
+  { key: "nav.quiz", id: "match-quiz", lines: 2 },
+  { key: "nav.services", id: "services", lines: 2 },
+  { key: "nav.clinic", id: "clinic", lines: 2 },
+  { key: "nav.feedback", id: "feedback" },
+  { key: "nav.mindful", id: "mindful-space", lines: 2 },
 ];
 
-export default function Navbar() {
+export default function Navbar({ c = DEFAULT_CONTENT }: { c?: SiteContent }) {
+  // "/#id" so links also work from /book-session and /free-call
+  const navLinks = navItems.map((n) => ({ ...n, label: c[n.key], href: `/#${n.id}` }));
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
   const [scrolled, setScrolled] = useState(false);
@@ -27,7 +31,7 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    const sectionIds = navLinks.map((l) => l.id);
+    const sectionIds = navItems.map((l) => l.id);
 
     const handleScroll = () => {
       const navBottom = 120;
@@ -147,7 +151,7 @@ export default function Navbar() {
               whiteSpace: "nowrap",
             }}
           >
-            Free 15-Min Call
+            {c["nav.free_call"]}
           </Link>
 
           <Link
@@ -162,7 +166,7 @@ export default function Navbar() {
               whiteSpace: "nowrap",
             }}
           >
-            Book Session
+            {c["nav.book"]}
           </Link>
         </div>
 
@@ -228,10 +232,10 @@ export default function Navbar() {
             </Link>
             <div style={{ display: "flex", flexDirection: "column", gap: "8px", paddingTop: "8px" }}>
               <Link href="/free-call" style={{ textAlign: "center", padding: "10px 20px", fontSize: "15px", fontWeight: 600, color: "#3B5BDB", border: "2px solid #3B5BDB", borderRadius: "9999px" }}>
-                Free 15-Min Call
+                {c["nav.free_call"]}
               </Link>
               <Link href="/book-session" style={{ textAlign: "center", padding: "10px 20px", fontSize: "15px", fontWeight: 600, color: "#FFFFFF", backgroundColor: "#3B5BDB", borderRadius: "9999px" }}>
-                Book Session
+                {c["nav.book"]}
               </Link>
             </div>
           </div>

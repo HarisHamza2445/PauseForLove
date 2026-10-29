@@ -1,19 +1,11 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
+import { DEFAULT_CONTENT, list, type SiteContent } from "@/lib/content";
 
-const affirmations = [
-  '"My peace is more valuable than maintaining an image of self-sacrifice. Saying \'no\' to others is saying \'yes\' to myself."',
-  '"I am allowed to outgrow versions of myself that no longer protect my peace."',
-  '"Healing is not linear, and I honor every small step I take toward wholeness."',
-  '"I release the need to earn love through suffering. I am enough as I am."',
-  '"My boundaries are not walls to keep people out — they are gates to protect my inner sanctuary."',
-  '"I deserve relationships that feel like safety, not survival."',
-  '"Choosing myself is not selfish — it is essential for my healing journey."',
-  '"I am allowed to grieve the relationship I deserved but never received."',
-];
 
-export default function MindfulPause() {
+export default function MindfulPause({ c = DEFAULT_CONTENT }: { c?: SiteContent }) {
+  const affirmations = list(c["mindful.affirmations"]).map((a) => `"${a.replace(/^"|"$/g, "")}"`);
   const [breathingState, setBreathingState] = useState<"ready" | "inhale" | "hold1" | "exhale" | "hold2">("ready");
   const [timer, setTimer] = useState(4);
   const [isActive, setIsActive] = useState(false);
@@ -119,7 +111,7 @@ export default function MindfulPause() {
               textTransform: "uppercase",
             }}
           >
-            Mindful Space
+            {c["mindful.badge"]}
           </div>
 
           <h2
@@ -133,7 +125,7 @@ export default function MindfulPause() {
               letterSpacing: "-0.01em",
             }}
           >
-            The &quot;Mindful Pause&quot; Corner
+            {c["mindful.heading"]}
           </h2>
 
           <p
@@ -145,8 +137,7 @@ export default function MindfulPause() {
               margin: "0 auto",
             }}
           >
-            Before your session, take 60 seconds to soothe your nervous system
-            and reclaim internal emotional space.
+            {c["mindful.description"]}
           </p>
         </div>
 
@@ -173,7 +164,7 @@ export default function MindfulPause() {
                 marginBottom: "8px",
               }}
             >
-              4-4-4 Box Breathing Guide
+              {c["mindful.breath_heading"]}
             </h3>
             <p
               style={{
@@ -183,8 +174,7 @@ export default function MindfulPause() {
                 marginBottom: "36px",
               }}
             >
-              Activates the parasympathetic vagal nerve to reduce heart rate
-              and stress.
+              {c["mindful.breath_text"]}
             </p>
 
             {/* Circular Timer */}
@@ -301,7 +291,7 @@ export default function MindfulPause() {
                   transition: "all 0.15s",
                 }}
               >
-                Start Breathing Exercise
+                {c["mindful.start"]}
               </button>
               <button
                 onClick={resetBreathing}
@@ -320,7 +310,7 @@ export default function MindfulPause() {
                   transition: "all 0.15s",
                 }}
               >
-                Reset
+                {c["mindful.reset"]}
               </button>
             </div>
           </div>
@@ -346,7 +336,7 @@ export default function MindfulPause() {
                 marginBottom: "24px",
               }}
             >
-              Daily Boundary & Self-Love Affirmation
+              {c["mindful.affirmation_heading"]}
             </p>
 
             <p
@@ -359,7 +349,7 @@ export default function MindfulPause() {
                 marginBottom: "auto",
               }}
             >
-              {affirmations[currentAffirmation]}
+              {affirmations[currentAffirmation] ?? affirmations[0]}
             </p>
 
             <div style={{ marginTop: "36px" }}>
@@ -392,7 +382,7 @@ export default function MindfulPause() {
                 >
                   <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2" />
                 </svg>
-                Draw New Affirmation
+                {c["mindful.draw"]}
               </button>
             </div>
           </div>

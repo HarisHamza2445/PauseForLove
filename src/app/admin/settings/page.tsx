@@ -4,6 +4,26 @@ import { useState, useEffect } from "react";
 import { Save, LogOut, User, MapPin, Clock, Phone, Mail, Shield, Eye, EyeOff, CheckCircle2 } from "lucide-react";
 import PageHeader from "@/components/admin/PageHeader";
 import { useAuth } from "../layout";
+import { supabase } from "@/lib/supabase";
+import { DEFAULT_CONTENT, SITE_CONTENT_KEY } from "@/lib/content";
+
+// Settings fields are stored in the same place as Website Content,
+// so editing them here updates the live website too.
+const FIELD_TO_CONTENT: Record<string, string> = {
+  full_name: "hero.name",
+  designation: "hero.title",
+  email: "contact.email",
+  phone: "contact.phone",
+  clinic_address: "location.address",
+  working_hours: "location.hours",
+  emergencyhelpline: "banner.helpline1_number",
+  emergency_name: "banner.helpline1_name",
+};
+
+async function loadSaved(): Promise<Record<string, string>> {
+  const { data } = await supabase.from("settings").select("setting_value").eq("setting_key", SITE_CONTENT_KEY).maybeSingle();
+  try { return data?.setting_value ? JSON.parse(data.setting_value) : {}; } catch { return {}; }
+}
 
 export default function SettingsPage() {
   const { updateCredentials } = useAuth();
@@ -32,6 +52,19 @@ export default function SettingsPage() {
   const [credMsg, setCredMsg] = useState("");
 
   useEffect(() => {
+    loadSaved().then((saved) => {
+      const merged = { ...DEFAULT_CONTENT, ...saved } as Record<string, string>;
+      setProfile((prev) => {
+        const next = { ...prev };
+        for (const [field, key] of Object.entries(FIELD_TO_CONTENT)) {
+          if (merged[key]) next[field as keyof typeof next] = merged[key];
+        }
+        return next;
+      });
+    });
+  }, []);
+
+  useEffect(() => {
     const savedUser = localStorage.getItem("admin_username");
     if (savedUser) setCredentials(prev => ({ ...prev, new_username: savedUser }));
   }, []);
@@ -42,10 +75,18 @@ export default function SettingsPage() {
 
   const saveAll = async () => {
     setSaving(true);
-    await new Promise(r => setTimeout(r, 800));
+    const saved = await loadSaved();
+    for (const [field, key] of Object.entries(FIELD_TO_CONTENT)) {
+      saved[key] = profile[field as keyof typeof profile];
+    }
+    const { error } = await supabase.from("settings").upsert(
+      { setting_key: SITE_CONTENT_KEY, setting_value: JSON.stringify(saved), category: "content", updated_at: new Date().toISOString() },
+      { onConflict: "setting_key" }
+    );
+    setSaving(false);
+    if (error) { setMsg(`Could not save: ${error.message}`); return; }
     setMsg("Settings saved!");
     setTimeout(() => setMsg(""), 2000);
-    setSaving(false);
   };
 
   const changeCredentials = async () => {

@@ -1,4 +1,6 @@
-export default function SafetyBanner() {
+import { DEFAULT_CONTENT, telHref, type SiteContent } from "@/lib/content";
+
+export default function SafetyBanner({ c = DEFAULT_CONTENT }: { c?: SiteContent }) {
   return (
     <div
       className="border-b"
@@ -29,7 +31,7 @@ export default function SafetyBanner() {
             textTransform: "uppercase",
           }}
         >
-          IMMEDIATE SAFETY
+          {c["banner.badge"]}
         </span>
         <span
           className="hidden sm:inline"
@@ -39,8 +41,7 @@ export default function SafetyBanner() {
             fontWeight: 400,
           }}
         >
-          If you or someone you love is experiencing an acute psychological
-          crisis or self-harm emergency, please dial:
+          {c["banner.message"]}
         </span>
         <span
           className="sm:hidden"
@@ -50,7 +51,7 @@ export default function SafetyBanner() {
             fontWeight: 400,
           }}
         >
-          In crisis? Call now:
+          {c["banner.message_mobile"]}
         </span>
       </div>
 
@@ -71,9 +72,9 @@ export default function SafetyBanner() {
             color: "#1A1A2E",
           }}
         >
-          Tele-MANAS:&nbsp;
+          {c["banner.helpline1_name"]}:&nbsp;
           <a
-            href="tel:14416"
+            href={telHref(c["banner.helpline1_number"])}
             style={{
               color: "#3B5BDB",
               fontWeight: 700,
@@ -81,7 +82,7 @@ export default function SafetyBanner() {
               textUnderlineOffset: "2px",
             }}
           >
-            14416
+            {c["banner.helpline1_number"]}
           </a>
         </span>
         <span className="hidden sm:inline" style={{ color: "#9CA3AF", fontSize: "12px" }}>|</span>
@@ -93,9 +94,9 @@ export default function SafetyBanner() {
             color: "#1A1A2E",
           }}
         >
-          Vandrevala:&nbsp;
+          {c["banner.helpline2_name"]}:&nbsp;
           <a
-            href="tel:+919999666555"
+            href={telHref(c["banner.helpline2_number"])}
             style={{
               color: "#3B5BDB",
               fontWeight: 700,
@@ -103,7 +104,7 @@ export default function SafetyBanner() {
               textUnderlineOffset: "2px",
             }}
           >
-            +91 9999 666 555
+            {c["banner.helpline2_number"]}
           </a>
         </span>
         <span
@@ -113,7 +114,7 @@ export default function SafetyBanner() {
             color: "#6B7280",
           }}
         >
-          (24x7 Free &amp; Confidential)
+          {c["banner.note"]}
         </span>
       </div>
     </div>

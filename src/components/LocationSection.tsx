@@ -1,6 +1,7 @@
 import Link from "next/link";
+import { DEFAULT_CONTENT, type SiteContent } from "@/lib/content";
 
-export default function LocationSection() {
+export default function LocationSection({ c = DEFAULT_CONTENT }: { c?: SiteContent }) {
   return (
     <section style={{ backgroundColor: "#FFFFFF" }}>
       <div
@@ -32,7 +33,7 @@ export default function LocationSection() {
                 marginBottom: "20px",
               }}
             >
-              Gurgaon Practice Location
+              {c["location.badge"]}
             </div>
 
             {/* Heading */}
@@ -46,7 +47,7 @@ export default function LocationSection() {
                 marginBottom: "16px",
               }}
             >
-              In-Person Therapeutic Suite
+              {c["location.heading"]}
             </h2>
 
             {/* Description */}
@@ -58,9 +59,7 @@ export default function LocationSection() {
                 marginBottom: "28px",
               }}
             >
-              A tranquil, sound-insulated space situated along Gurgaon&apos;s
-              prime corridor, designed for mindful privacy and grounded
-              reflection.
+              {c["location.description"]}
             </p>
 
             {/* Address Box */}
@@ -89,8 +88,7 @@ export default function LocationSection() {
                   lineHeight: 1.6,
                 }}
               >
-                F10/12B, Second Floor, Independent Floors,{" "}
-                Golf Course Road, DLF Phase 1, Gurgaon, Haryana 122002
+                {c["location.address"]}
               </p>
             </div>
 
@@ -118,8 +116,7 @@ export default function LocationSection() {
                 <polyline points="12 6 12 12 16 14" />
               </svg>
               <p style={{ fontSize: "14px", color: "#374151", lineHeight: 1.5 }}>
-                <strong>Hours:</strong> Mon – Fri: 9:00 AM – 5:00 PM (By prior
-                appointment only)
+                <strong>Hours:</strong> {c["location.hours"]}
               </p>
             </div>
 
@@ -132,9 +129,7 @@ export default function LocationSection() {
                 marginBottom: "28px",
               }}
             >
-              <strong>Landmarks & Transit:</strong> 3-minute drive from
-              Sikanderpur Metro Station (Yellow Line / Rapid Metro). Ample
-              street parking available.
+              <strong>Landmarks & Transit:</strong> {c["location.landmarks"]}
             </p>
 
             {/* CTA */}
@@ -157,7 +152,7 @@ export default function LocationSection() {
                 textAlign: "center",
               }}
             >
-              Book In-Person Visit at Clinic
+              {c["location.cta"]}
             </Link>
           </div>
 
@@ -209,7 +204,7 @@ export default function LocationSection() {
                 marginBottom: "6px",
               }}
             >
-              DLF Phase 1, Golf Course Road
+              {c["location.map_title"]}
             </h3>
             <p
               style={{
@@ -219,12 +214,12 @@ export default function LocationSection() {
                 marginBottom: "24px",
               }}
             >
-              F10/12B Independent Floors, Gurgaon
+              {c["location.map_subtitle"]}
             </p>
 
             {/* Google Maps Button */}
             <a
-              href="https://maps.google.com/?q=DLF+Phase+1+Golf+Course+Road+Gurgaon"
+              href={c["location.map_url"]}
               target="_blank"
               rel="noopener noreferrer"
               className="w-full sm:w-auto"

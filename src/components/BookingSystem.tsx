@@ -2,6 +2,7 @@
 
 import { useState, useMemo, useRef, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
+import { DEFAULT_CONTENT, type SiteContent } from "@/lib/content";
 
 const steps = [
   { id: 1, label: "Format" },
@@ -57,7 +58,7 @@ const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const MONTHS = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"];
 
-export default function BookingSystem() {
+export default function BookingSystem({ c = DEFAULT_CONTENT }: { c?: SiteContent }) {
   const searchParams = useSearchParams();
   const planParam = searchParams.get("plan");
   const [currentStep, setCurrentStep] = useState(1);
@@ -283,17 +284,17 @@ export default function BookingSystem() {
             fontWeight: 600, letterSpacing: "0.08em", padding: "8px 16px",
             borderRadius: "9999px", marginBottom: "24px", textTransform: "uppercase",
           }}>
-            Schedule Consultation
+            {c["booking.badge"]}
           </div>
           <h2 style={{
             fontFamily: "var(--font-heading)", fontSize: "clamp(2rem, 4vw, 3rem)",
             fontWeight: 700, lineHeight: 1.15, color: "#1A1A2E",
             marginBottom: "20px", letterSpacing: "-0.01em",
           }}>
-            Client Booking System
+            {c["booking.heading"]}
           </h2>
           <p style={{ fontSize: "17px", color: "#4B5563", lineHeight: 1.75, maxWidth: "560px", margin: "0 auto" }}>
-            Reserve your 1-hour session or free discovery call in four seamless steps. Mon–Fri from 9:00 AM to 5:00 PM.
+            {c["booking.description"]}
           </p>
         </div>
 
